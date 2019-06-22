@@ -1,4 +1,2 @@
-package PACKAGE_NAME;
-
-public class Album {
+public class Album extends Playlist{
 }
