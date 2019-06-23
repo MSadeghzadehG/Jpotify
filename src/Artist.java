@@ -5,4 +5,7 @@ public class Artist {
     private ArrayList<Song> songs;
     private ArrayList<Album> albums;
 
+    public Artist(String name) {
+        this.name = name;
+    }
 }
