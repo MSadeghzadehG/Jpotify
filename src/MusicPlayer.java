@@ -14,7 +14,7 @@ public class MusicPlayer {
         PlayerThread t1 = (new PlayerThread("/home/mohsen/IdeaProjects/Jpotify/src/musics/a.mp3")); // MP3 Address
 
         t1.start(); // Play for 3 seconds
-        Thread.sleep(3000);
+        Thread.sleep(9000);
 //        t1.mp3Pause(); // Pause for 3 seconds
 //        Thread.sleep(3000);
 //        t1.mp3Resume(); // Resume for 3 seconds
@@ -86,6 +86,7 @@ class PlayerThread extends Thread
 
     @Override
     public void run() {
+        int cnt = 0;
         try {
             while (!stop && player.play(1)) {
                 if (pause) {
@@ -93,6 +94,7 @@ class PlayerThread extends Thread
                         player.wait();
                     }
                 }
+                System.out.println(cnt++);
             }
 
             // call listplay next function
