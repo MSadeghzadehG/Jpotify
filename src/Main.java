@@ -1,9 +1,7 @@
-import Views.Frame;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
 
-import javax.swing.*;
 import java.io.IOException;
 
 public class Main {

@@ -9,23 +9,23 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 
 public class MusicPlayer {
 
-    public static void play() throws InterruptedException, IOException, JavaLayerException {// ,InvalidDataException, UnsupportedTagException {
+    public static void play() throws InterruptedException, IOException, JavaLayerException ,InvalidDataException, UnsupportedTagException {
 
-        PlayerThread t1 = (new PlayerThread("a.mp3")); // MP3 Address
+        PlayerThread t1 = (new PlayerThread("/home/mohsen/IdeaProjects/Jpotify/src/musics/a.mp3")); // MP3 Address
 
         t1.start(); // Play for 3 seconds
         Thread.sleep(3000);
-        t1.mp3Pause(); // Pause for 3 seconds
-        Thread.sleep(3000);
-        t1.mp3Resume(); // Resume for 3 seconds
-        Thread.sleep(3000);
-        t1.seekTo(95.0); // Seeks to 95% of music and plays for 3 seconds
-        Thread.sleep(3000);
-        t1.mp3Stop(); // Full stop
-        Thread.sleep(3000);
+//        t1.mp3Pause(); // Pause for 3 seconds
+//        Thread.sleep(3000);
+//        t1.mp3Resume(); // Resume for 3 seconds
+//        Thread.sleep(3000);
+//        t1.seekTo(95.0); // Seeks to 95% of music and plays for 3 seconds
+//        Thread.sleep(3000);
+//        t1.mp3Stop(); // Full stop
+//        Thread.sleep(3000);
 
         try {
-            t1 = (new PlayerThread("a.mp3")); // Restart Playing
+            t1 = (new PlayerThread("/home/mohsen/IdeaProjects/Jpotify/src/musics/a.mp3")); // Restart Playing
         } catch (InvalidDataException e) {
 //            e.printStackTrace();
         } catch (UnsupportedTagException e) {
