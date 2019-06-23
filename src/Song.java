@@ -1,6 +1,4 @@
-import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
-import com.mpatric.mp3agic.UnsupportedTagException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -9,36 +7,30 @@ import java.io.File;
 import java.io.IOException;
 
 public class Song {
-    private String song_src;
-    private String cover_src;
+    private String name;
+    private byte[] cover;
     private long length;
     private Artist artist;
     private Album album;
+    private String src;
+    private Mp3File artwork;
 
-    public Song(String song_src) {
-        this.song_src = song_src;
-        Mp3File mp3File =  null;
-        try {
-            mp3File =  new Mp3File(song_src);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (UnsupportedTagException e) {
-            e.printStackTrace();
-        } catch (InvalidDataException e) {
-            e.printStackTrace();
-        }
-
-        this.length = mp3File.getLengthInSeconds();
-        String albumName = mp3File.getId3v2Tag().getAlbum();
-        this.artist = new Artist(mp3File.getId3v2Tag().getAlbumArtist());
-        byte[] albumImageData = mp3File.getId3v2Tag().getAlbumImage();
-
+    public Song(String name, byte[] cover, long length, Artist artist, Album album, String src, Mp3File artwork) {
+        this.name = name;
+        this.cover = cover;
+        this.length = length;
+        this.artist = artist;
+        this.album = album;
+        this.src = src;
+        this.artwork = artwork;
     }
 
     public ImageIcon getCover() {
         BufferedImage image = null;
         try {
-            image = ImageIO.read(new File(this.cover_src));
+            File imageFile = null;
+            org.apache.commons.io.FileUtils.writeByteArrayToFile(imageFile, cover);
+            image = ImageIO.read(imageFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,5 +39,21 @@ public class Song {
 
     public String getLength() {
         return this.length/60 + ":" + this.length%60;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public Mp3File getArtwork() {
+        return artwork;
     }
 }

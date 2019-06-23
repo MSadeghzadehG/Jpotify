@@ -7,5 +7,15 @@ public class Artist {
 
     public Artist(String name) {
         this.name = name;
+        songs = new ArrayList<>();
+        albums = new ArrayList<>();
+    }
+
+    public void addSong(Song song) {
+        songs.add(song);
+    }
+
+    public void addAlbum(Album album) {
+        albums.add(album);
     }
 }

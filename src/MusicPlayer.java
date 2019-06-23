@@ -1,18 +1,62 @@
 import java.io.*;
-
-import com.mpatric.mp3agic.InvalidDataException;
-import com.mpatric.mp3agic.Mp3File;
-import com.mpatric.mp3agic.UnsupportedTagException;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
 
 public class MusicPlayer {
+    private static final MusicPlayer musicPlayer = new MusicPlayer();
+    PlayerThread player;
 
-    public static void play() throws InterruptedException, IOException, JavaLayerException ,InvalidDataException, UnsupportedTagException {
+    private MusicPlayer() {
+    }
 
-        PlayerThread t1 = (new PlayerThread("/Users/msg_pc/Desktop/Jpotify/src/musics/b.mp3")); // MP3 Address
-        t1.start(); // Play for 1 seconds
+    public static MusicPlayer getInstance() {
+        return musicPlayer;
+    }
+
+    public void addSongToPlay(Song song){
+        try {
+            player = new PlayerThread(song);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JavaLayerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void play(){
+        if (player.getStatus())
+            player.mp3Resume();
+        else {
+            player.start();
+        }
+
+    }
+
+    public void seekTo(double percentage) {
+        try {
+            player.seekTo(percentage);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (JavaLayerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // mikhayam ino??
+//    public void stop() {
+//        player.mp3Stop();
+//    }
+
+    public void pause() {
+        player.mp3Pause();
+    }
+
+//    public static void play() throws InterruptedException, IOException, JavaLayerException ,InvalidDataException, UnsupportedTagException {
+//
+//        PlayerThread t1 = (new PlayerThread("/Users/msg_pc/Desktop/Jpotify/src/musics/b.mp3")); // MP3 Address
+//        t1.start(); // Play for 1 seconds
+//
 //        System.out.println("Play for 5 seconds");
 //        Thread.sleep(5000);
 //        System.out.println("seeked to 80");
@@ -26,7 +70,6 @@ public class MusicPlayer {
 //        t1.mp3Stop(); // Full stop
 //        System.out.println("after one second stoped");
 //        Thread.sleep(3000);
-
 //        try {
 //            t1 = (new PlayerThread("/Users/msg_pc/Desktop/Jpotify/src/musics/a.mp3")); // Restart Playing
 //        } catch (InvalidDataException e) {
@@ -37,31 +80,23 @@ public class MusicPlayer {
 //        t1.start();
 //        Thread.sleep(3000);
 //        t1.mp3Stop(); // Full stop
-
-    }
-
+//    }
 }
-class PlayerThread extends Thread
-{
-    private Mp3File mp3File;
+
+class PlayerThread extends Thread {
     private boolean pause;
     private boolean stop;
-    private String file;
+    private boolean isStarted;
+    private Song song;
+
     private AdvancedPlayer player;
 
-    public PlayerThread(String file) throws InvalidDataException, IOException, UnsupportedTagException, JavaLayerException {
+    public PlayerThread(Song song) throws IOException, JavaLayerException {
         pause = false;
         stop = false;
-        this.file = file;
-        this.mp3File = new Mp3File(file);
-        FileInputStream bufferedInputStream = (new FileInputStream(new File(file)));
-        player = new AdvancedPlayer(bufferedInputStream);
-    }
-
-    public void getStatus(){
-        System.out.println(mp3File.getId3v2Tag().getTitle());
-        System.out.println(mp3File.getId3v2Tag().getAlbumArtist());
-        System.out.println(mp3File.getId3v2Tag().getAlbum());
+        isStarted = false;
+        this.song = song;
+        player = new AdvancedPlayer(new FileInputStream(new File(song.getSrc())));
     }
 
     public void mp3Pause() {
@@ -85,16 +120,19 @@ class PlayerThread extends Thread
     public void seekTo(double percentage) throws FileNotFoundException, JavaLayerException {
         synchronized (player) {
             player.close();
-            FileInputStream bufferedInputStream = (new FileInputStream(new File(file)));
-            player = new AdvancedPlayer(bufferedInputStream);
-            int frame = (int)(Math.floor(percentage*mp3File.getFrameCount()/100.0));
+            player = new AdvancedPlayer(new FileInputStream(new File(song.getSrc())));
+            int frame = (int)(Math.floor(percentage*song.getArtwork().getFrameCount()/100.0));
             player.play(frame, frame + 1);
         }
     }
 
+    public boolean getStatus() {
+        return this.isStarted;
+    }
+
     @Override
     public void run() {
-        this.getStatus();
+        this.isStarted = true;
         try {
             while (!stop && player.play(1)) {
                 if (pause) {
@@ -103,11 +141,9 @@ class PlayerThread extends Thread
                     }
                 }
             }
-
             // call listplay next function
             System.out.println("FINISHED.");
             // Play finished.
-
         } catch (JavaLayerException | InterruptedException e) {
             e.printStackTrace();
         }
