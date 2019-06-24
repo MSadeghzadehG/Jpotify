@@ -46,7 +46,7 @@ public class MusicControllerPanel extends JPanel {
         this.add(left, gbc);
         //this.setBackground(Color.black);
         this.setVisible(true);
-        center.add(slider, BorderLayout.SOUTH);
+//        center.add(slider, BorderLayout.SOUTH);
 
 
 

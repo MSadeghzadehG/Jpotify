@@ -8,13 +8,13 @@ public class Main {
         MainFrame mainFrame = new MainFrame();
         Song testSong = AlbumManager.getInstance().addNewSong("src/musics/b.mp3");
         MusicPlayer.getInstance().addSongToPlay(testSong);
-        MusicPlayer.getInstance().play();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        MusicPlayer.getInstance().pause();
+//        MusicPlayer.getInstance().play();
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        MusicPlayer.getInstance().pause();
 
     }
 }
