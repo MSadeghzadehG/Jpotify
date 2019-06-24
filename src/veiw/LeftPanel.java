@@ -27,7 +27,7 @@ public class LeftPanel extends JPanel {
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridheight = 1;
-        gbc.weighty = 1;
+        gbc.weighty = 0.45;
         gbc.weightx = 1;
 
         gbc.gridwidth = 1;
@@ -35,6 +35,7 @@ public class LeftPanel extends JPanel {
         gbc.gridy = 0;
         editPanel = new EditPanel();
         add(editPanel , gbc);
+        gbc.weighty = 1;
         gbc.gridx = 0;
         gbc.gridy = 1;
         playListPanel = new PlayListPanel();
