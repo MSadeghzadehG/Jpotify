@@ -3,6 +3,7 @@ package logic;
 import com.mpatric.mp3agic.Mp3File;
 import logic.Album;
 import logic.Artist;
+import sun.management.Agent;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -10,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class Song {
     private String name;
@@ -34,7 +36,7 @@ public class Song {
         BufferedImage image = null;
         try {
             if (cover == null){
-                image = ImageIO.read(new File("src/icons/default-song-icon.png"));
+                image = ImageIO.read(new File("src/Icons/default-song-icon.png"));
             } else {
                 ByteArrayInputStream bis = new ByteArrayInputStream(cover);
                 image = ImageIO.read(bis);
