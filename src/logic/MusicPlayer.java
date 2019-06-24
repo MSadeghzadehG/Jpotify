@@ -17,7 +17,6 @@ public class MusicPlayer {
 
 
     public void setMusicLinker(MusicLinker musicLinker) {
-        this.musicLinker = musicLinker;
         player.setMusicLinker(musicLinker);
     }
 
@@ -28,10 +27,7 @@ public class MusicPlayer {
     public void addSongToPlay(Song song){
         this.song = song;
         try {
-            if(player!=null)
-                player.mp3Stop();
             player = new PlayerThread(song);
-            player.setMusicLinker(musicLinker);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JavaLayerException e) {
