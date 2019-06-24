@@ -127,5 +127,9 @@ public class MainFrame extends JFrame {
         leftPanel = new LeftPanel();
         add(leftPanel , gbc);
     }
+    public MusicControllerPanel getMusicControllerPanel()
+    {
+        return musicControllerPanel;
+    }
 }
 

@@ -8,6 +8,7 @@ public class MusicControllerPanel extends JPanel {
     JSlider slider;
     JButton addToFavoriteButton;
     GridBagConstraints gbc;
+    MusicControllerCenterPanel center;
     public MusicControllerPanel()
     {
         //this.setPreferredSize(new Dimension(10*250 ,  200));
@@ -21,7 +22,7 @@ public class MusicControllerPanel extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
 
 
-        MusicControllerCenterPanel center = new MusicControllerCenterPanel();
+        center = new MusicControllerCenterPanel();
         center.setBackground(Color.red);
         JPanel right = new JPanel(new BorderLayout());
         right.setBackground(Color.blue);
@@ -47,9 +48,10 @@ public class MusicControllerPanel extends JPanel {
         //this.setBackground(Color.black);
         this.setVisible(true);
 //        center.add(slider, BorderLayout.SOUTH);
-
-
-
+    }
+    public MusicControllerCenterPanel getCenterPanel()
+    {
+        return center;
     }
     private void setGbc()
     {

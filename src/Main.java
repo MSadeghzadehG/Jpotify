@@ -8,6 +8,7 @@ public class Main {
         MainFrame mainFrame = new MainFrame();
         Song testSong = AlbumManager.getInstance().addNewSong("src/musics/b.mp3");
         MusicPlayer.getInstance().addSongToPlay(testSong);
+        MusicPlayer.getInstance().setMusicLinker(mainFrame.getMusicControllerPanel().getCenterPanel());
 //        MusicPlayer.getInstance().play();
 //        try {
 //            Thread.sleep(5000);
