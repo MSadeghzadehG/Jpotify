@@ -1,8 +1,13 @@
+package logic;
+
 import com.mpatric.mp3agic.Mp3File;
+import logic.Album;
+import logic.Artist;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -28,9 +33,12 @@ public class Song {
     public ImageIcon getCover() {
         BufferedImage image = null;
         try {
-            File imageFile = null;
-            org.apache.commons.io.FileUtils.writeByteArrayToFile(imageFile, cover);
-            image = ImageIO.read(imageFile);
+            if (cover == null){
+                image = ImageIO.read(new File("src/icons/default-song-icon.png"));
+            } else {
+                ByteArrayInputStream bis = new ByteArrayInputStream(cover);
+                image = ImageIO.read(bis);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

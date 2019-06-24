@@ -1,4 +1,6 @@
-public class Album extends Playlist{
+package logic;
+
+public class Album extends Playlist {
     private Artist artist;
 
     public Album(String name, Artist artist) {

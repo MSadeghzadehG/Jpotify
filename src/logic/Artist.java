@@ -1,3 +1,7 @@
+package logic;
+
+import logic.Album;
+
 import java.util.ArrayList;
 
 public class Artist {

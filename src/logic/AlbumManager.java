@@ -1,3 +1,5 @@
+package logic;
+
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
@@ -8,9 +10,9 @@ import java.util.HashMap;
 public class AlbumManager {
 
     private static final AlbumManager albumManager = new AlbumManager();
-    private HashMap<String,Album> albums;
-    private HashMap<String,Artist> artists;
-    private HashMap<String,Song> songs;
+    private HashMap<String, Album> albums;
+    private HashMap<String, Artist> artists;
+    private HashMap<String, Song> songs;
 
 
     private AlbumManager() {
@@ -59,5 +61,17 @@ public class AlbumManager {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public HashMap<String, Album> getAlbums() {
+        return albums;
+    }
+
+    public HashMap<String, Artist> getArtists() {
+        return artists;
+    }
+
+    public HashMap<String, Song> getSongs() {
+        return songs;
     }
 }

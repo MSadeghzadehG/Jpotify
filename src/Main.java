@@ -1,3 +1,6 @@
+import logic.AlbumManager;
+import logic.MusicPlayer;
+import logic.Song;
 import veiw.MainFrame;
 
 public class Main {

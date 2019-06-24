@@ -1,3 +1,5 @@
+package logic;
+
 import java.io.*;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
@@ -5,7 +7,8 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 
 public class MusicPlayer {
     private static final MusicPlayer musicPlayer = new MusicPlayer();
-    PlayerThread player;
+    private PlayerThread player;
+    private Song song;
 
     private MusicPlayer() {
     }
@@ -15,6 +18,7 @@ public class MusicPlayer {
     }
 
     public void addSongToPlay(Song song){
+        this.song = song;
         try {
             player = new PlayerThread(song);
         } catch (IOException e) {
@@ -22,6 +26,10 @@ public class MusicPlayer {
         } catch (JavaLayerException e) {
             e.printStackTrace();
         }
+    }
+
+    public Song getSong(){
+        return this.song;
     }
 
     public void play(){
@@ -54,7 +62,7 @@ public class MusicPlayer {
 
 //    public static void play() throws InterruptedException, IOException, JavaLayerException ,InvalidDataException, UnsupportedTagException {
 //
-//        PlayerThread t1 = (new PlayerThread("/Users/msg_pc/Desktop/Jpotify/src/musics/b.mp3")); // MP3 Address
+//        logic.PlayerThread t1 = (new logic.PlayerThread("/Users/msg_pc/Desktop/Jpotify/src/musics/b.mp3")); // MP3 Address
 //        t1.start(); // Play for 1 seconds
 //
 //        System.out.println("Play for 5 seconds");
@@ -71,7 +79,7 @@ public class MusicPlayer {
 //        System.out.println("after one second stoped");
 //        Thread.sleep(3000);
 //        try {
-//            t1 = (new PlayerThread("/Users/msg_pc/Desktop/Jpotify/src/musics/a.mp3")); // Restart Playing
+//            t1 = (new logic.PlayerThread("/Users/msg_pc/Desktop/Jpotify/src/musics/a.mp3")); // Restart Playing
 //        } catch (InvalidDataException e) {
 //            e.printStackTrace();
 //        } catch (UnsupportedTagException e) {
