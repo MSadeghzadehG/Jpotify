@@ -3,6 +3,7 @@ package logic;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
+import veiw.MusicBox;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ public class AlbumManager {
     private HashMap<String, Album> albums;
     private HashMap<String, Artist> artists;
     private HashMap<String, Song> songs;
+    private MusicAddListener musicAddListener;
 
 
     private AlbumManager() {
@@ -32,6 +34,10 @@ public class AlbumManager {
             return new Album(albumName,artistName);
         }
     }
+    public void setMusicAddListener(MusicAddListener musicAddListener)
+    {
+        this.musicAddListener = musicAddListener;
+    }
 
     public Artist getSongArtist(String artistName) {
         if (artists.containsKey(artistName)) {
@@ -50,7 +56,10 @@ public class AlbumManager {
             Artist artist = getSongArtist(song_artwork.getId3v2Tag().getAlbumArtist());
             Album album = getSongAlbum(song_artwork.getId3v2Tag().getAlbum(), artist);
             Song song = new Song(songName,cover,length,artist,album, song_src, song_artwork);
+            if(musicAddListener!=null)
+                musicAddListener.musicAdded(song);
             songs.put(songName, song);
+
             return song;
 
         } catch (IOException e) {

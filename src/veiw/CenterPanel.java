@@ -1,9 +1,12 @@
 package veiw;
 
+import logic.MusicAddListener;
+import logic.Song;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class CenterPanel extends JPanel {
+public class CenterPanel extends JPanel implements MusicAddListener {
     GridBagConstraints gbc;
     public CenterPanel() {
         setLayout(new GridBagLayout());
@@ -51,14 +54,6 @@ public class CenterPanel extends JPanel {
 
 //        insidePanel.setSize(3000,3000);
         //insidePanel.setBackground(Color.YELLOW);
-        for (int i = 0; i < 140; i++) {
-            MusicBox musicBox = new MusicBox();
-            if(i%2==1)
-                musicBox.setBackground(Color.green);
-          //  add(new JButton("hi") , gbc);
-            add(musicBox , gbc);
-            setGbc();
-        }
 
 //        JScrollPane scrollPane = new JScrollPane(insidePanel);
 //        scrollPane.add(insidePanel);
@@ -71,6 +66,10 @@ public class CenterPanel extends JPanel {
 
 
 
+    private void addMusicBox()
+    {
+
+    }
 
     private void setGbc()
     {
@@ -89,4 +88,10 @@ public class CenterPanel extends JPanel {
     }
 
 
+    @Override
+    public void musicAdded(Song song) {
+        MusicBox musicBox = new MusicBox(song);
+        add(musicBox);
+        setGbc();
+    }
 }

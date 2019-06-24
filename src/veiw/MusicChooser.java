@@ -1,5 +1,8 @@
 package veiw;
 
+import logic.AlbumManager;
+import logic.MusicPlayer;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
@@ -20,6 +23,7 @@ public class MusicChooser extends JFileChooser {
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = getSelectedFile();
             System.out.println(selectedFile.getAbsolutePath());
+            AlbumManager.getInstance().addNewSong(getSelectedFile().getAbsolutePath());
         }
 
     }

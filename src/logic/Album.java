@@ -12,6 +12,7 @@ public class Album extends Playlist {
     public void addSong(Song song) {
         if (artist.equals(song.getArtist()))
            super.addSong(song);
+
         else {
             System.out.println("wrong artist added");
         }

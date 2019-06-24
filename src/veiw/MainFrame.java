@@ -33,6 +33,10 @@ public class MainFrame extends JFrame {
         setVisible(true);
 
     }
+    public CenterPanel getCenterPanel()
+    {
+        return centerPanel;
+    }
     public void addEditPanel()
     {
       //  gbc.fill = GridBagConstraints.BOTH;
