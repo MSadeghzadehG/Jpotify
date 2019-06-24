@@ -74,8 +74,9 @@ public class CenterPanel extends JPanel implements MusicAddListener {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         gbc.gridheight = 1;
-        gbc.weighty = 1;
-        gbc.weightx = 1;
+        gbc.gridwidth = 1;
+    //    gbc.weighty = 1;
+    //    gbc.weightx = 1;
 
         setVisible(true);
 //        setVisible(true);
@@ -103,8 +104,9 @@ public class CenterPanel extends JPanel implements MusicAddListener {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         gbc.gridheight = 1;
-        gbc.weighty = 1;
-        gbc.weightx = 1;
+        gbc.gridwidth = 1;
+    //    gbc.weighty = 1;
+    //    gbc.weightx = 1;
 
     }
 
