@@ -84,7 +84,7 @@ public class MainFrame extends JFrame {
     }
     public void addMusicControlerPanel()
     {
-        gbc.gridx = 0;
+        gbc.gridx = 2;
         gbc.gridy = 6;
         gbc.weighty = 1;
         gbc.weightx = 10;
@@ -117,10 +117,10 @@ public class MainFrame extends JFrame {
     {
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.weighty = 6;
+        gbc.weighty = 8;
         gbc.weightx = 1.5;
         gbc.gridwidth = 1;
-        gbc.gridheight = 6;
+        gbc.gridheight = 8;
 
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         gbc.fill = GridBagConstraints.BOTH;
