@@ -92,6 +92,8 @@ public class CenterPanel extends JPanel implements MusicAddListener {
     public void musicAdded(Song song) {
         MusicBox musicBox = new MusicBox(song);
         add(musicBox);
+        repaint();
+        revalidate();
         setGbc();
     }
 }
