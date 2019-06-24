@@ -21,9 +21,8 @@ public class MusicChooser extends JFileChooser {
         // int returnValue = jfc.showSaveDialog(null);
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = getSelectedFile();
-            System.out.println(selectedFile.getAbsolutePath());
-            AlbumManager.getInstance().addNewSong(getSelectedFile().getAbsolutePath());
+            File file = getSelectedFile();
+            AlbumManager.getInstance().addNewSong(file.getAbsolutePath());
         }
 
     }

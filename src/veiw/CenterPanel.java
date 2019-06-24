@@ -5,24 +5,30 @@ import logic.Song;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class CenterPanel extends JPanel implements MusicAddListener {
     GridBagConstraints gbc;
+    private int gbcXTemp;
+    private int gbcYtemp;
+    private ArrayList<MusicBox> musicBoxes;
     public CenterPanel() {
         setLayout(new GridBagLayout());
+     //   setLayout(new GridLayout(3 , 300 , 20 , 20));
         gbc = new GridBagConstraints();
 //        JPanel insidePanel = new JPanel();
         setBackground(Color.red);
       //  setLayout(new GridLayout(10, 5, 5, 20));
-        setSize(new Dimension(30000 ,30000));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-       gbc.anchor = GridBagConstraints.FIRST_LINE_START;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridheight = 1;
-        gbc.weighty = 1;
-        gbc.weightx = 1;
+        setSize(new Dimension(1000 ,30000));
+        musicBoxes = new ArrayList<MusicBox>();
+        //gbc = new GridBagConstraints();
+        //gbc.gridx = 0;
+        //gbc.gridy = 0;
+       //gbc.anchor = GridBagConstraints.FIRST_LINE_START;
+       // gbc.fill = GridBagConstraints.BOTH;
+       // gbc.gridheight = 1;
+       // gbc.weighty = 1;
+       // gbc.weightx = 1;
 //        JButton b1 = new JButton("1");
  //       add(b1, gbc);
 //
@@ -60,6 +66,17 @@ public class CenterPanel extends JPanel implements MusicAddListener {
         //scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 //        add(scrollPane,BorderLayout.CENTER);
 //        add(scrollPane, BorderLayout.CENTER);
+        gbc.gridx = gbcXTemp;
+        gbc.gridy = gbcYtemp;
+
+        System.out.println(gbc.gridx + " " + gbc.gridy);
+        gbc.insets = new Insets(10 , 10 , 10 , 10);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
+        gbc.gridheight = 1;
+        gbc.weighty = 1;
+        gbc.weightx = 1;
+
         setVisible(true);
 //        setVisible(true);
     }
@@ -73,27 +90,30 @@ public class CenterPanel extends JPanel implements MusicAddListener {
 
     private void setGbc()
     {
-        gbc.gridx++;
-        if(gbc.gridx == 3) {
+        gbcXTemp++;
 
-            gbc.gridx = 0;
-            gbc.gridy++;
+        if(gbcXTemp == 3) {
+            gbcXTemp = 0;
+            gbcYtemp++;
         }
-        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
+        gbc.gridx = gbcXTemp;
+        gbc.gridy = gbcYtemp;
+
+        gbc.insets = new Insets(10 , 10 , 10 , 10);
         gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         gbc.gridheight = 1;
         gbc.weighty = 1;
         gbc.weightx = 1;
 
     }
 
-
     @Override
     public void musicAdded(Song song) {
-        MusicBox musicBox = new MusicBox(song);
-        add(musicBox);
-        repaint();
-        revalidate();
-        setGbc();
+            MusicBox musicBox = new MusicBox(song);
+            musicBoxes.add(musicBox);
+            add(musicBox , gbc);
+            revalidate();
+            setGbc();
     }
 }
