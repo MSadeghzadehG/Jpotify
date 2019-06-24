@@ -3,14 +3,21 @@ package logic;
 import java.io.*;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
+import veiw.MusicControllerCenterPanel;
 
 
 public class MusicPlayer {
     private static final MusicPlayer musicPlayer = new MusicPlayer();
     private PlayerThread player;
     private Song song;
+    private MusicLinker musicLinker;
 
     private MusicPlayer() {
+    }
+
+
+    public void setMusicLinker(MusicLinker musicLinker) {
+        this.musicLinker = musicLinker;
     }
 
     public static MusicPlayer getInstance() {
@@ -96,6 +103,7 @@ class PlayerThread extends Thread {
     private boolean stop;
     private boolean isStarted;
     private Song song;
+    private int currentFrame;
 
     private AdvancedPlayer player;
 
@@ -104,6 +112,7 @@ class PlayerThread extends Thread {
         stop = false;
         isStarted = false;
         this.song = song;
+        currentFrame = 0;
         player = new AdvancedPlayer(new FileInputStream(new File(song.getSrc())));
     }
 
@@ -138,9 +147,14 @@ class PlayerThread extends Thread {
         return this.isStarted;
     }
 
+    public int getCurrentFrame() {
+        return currentFrame;
+    }
+
     @Override
     public void run() {
         this.isStarted = true;
+        double percentage = 0.0;
         try {
             while (!stop && player.play(1)) {
                 if (pause) {
@@ -148,6 +162,9 @@ class PlayerThread extends Thread {
                         player.wait();
                     }
                 }
+                currentFrame++;
+                percentage = (double)currentFrame/this.song.getArtwork().getFrameCount();
+//                MusicControllerCenterPanel.getInstance().setMusicStatus(percentage);
             }
             // call listplay next function
             System.out.println("FINISHED.");
@@ -156,4 +173,6 @@ class PlayerThread extends Thread {
             e.printStackTrace();
         }
     }
+
+
 }
