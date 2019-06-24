@@ -132,7 +132,7 @@ class PlayerThread extends Thread {
         synchronized (player) {
             player.notifyAll();
         }
-        System.out.println("resume oomad");
+//        System.out.println("resume oomad");
 
     }
 
@@ -148,9 +148,10 @@ class PlayerThread extends Thread {
             player.close();
             player = new AdvancedPlayer(new FileInputStream(new File(song.getSrc())));
             int frame = (int)(Math.floor(percentage*song.getArtwork().getFrameCount()/100.0));
+            currentFrame = frame;
             if (!pause)
                 player.play(frame, frame + 1);
-            System.out.println("seek to oomad");
+//            System.out.println("seek to oomad");
         }
     }
 
@@ -175,10 +176,8 @@ class PlayerThread extends Thread {
                 }
                 currentFrame++;
                 percentage = (double)currentFrame/this.song.getArtwork().getFrameCount();
-                if (percentage>0.5)
-                    System.out.println("oomad:))");
-                musicLinker.musicStatus(percentage);
-//                MusicControllerCenterPanel.getInstance().setMusicStatus(percentage);
+                if (currentFrame%10==0)
+                    musicLinker.musicStatus(percentage);
             }
             // call listplay next function
             System.out.println("FINISHED.");

@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 public class MusicControllerCenterPanel extends JPanel implements logic.MusicLinker{
     private GridBagConstraints gbc;
     private JProgressBar progressBar;
-    private JSlider slider;
     private String endTime;
     private String currentTime;
 
@@ -25,9 +24,8 @@ public class MusicControllerCenterPanel extends JPanel implements logic.MusicLin
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         gbc.fill = GridBagConstraints.BOTH;
 
-        progressBar = new JProgressBar(0 , 100);
+        progressBar = new JProgressBar(0 , 1000);
         progressBar.setStringPainted(true);
-        slider = new JSlider(0 , 1000 , 0);
 
         endTime = MusicPlayer.getInstance().getSong().getLength();
 
@@ -98,10 +96,13 @@ public class MusicControllerCenterPanel extends JPanel implements logic.MusicLin
                 super.mouseReleased(e);
                 System.out.println("function is called");
 //                MusicPlayer.getInstance().pause();
-                MusicPlayer.getInstance().seekTo((double)slider.getValue()/1000);
 //                System.out.println((double)slider.getValue()/MusicPlayer.getInstance().getSong().getArtwork().getLengthInSeconds());
-                System.out.println(progressBar.getValue());
+//                System.out.println(progressBar.getValue());
 //                MusicPlayer.getInstance().play();
+                int mouseX = e.getX();
+                int progressBarVal = (int)Math.round(((double)mouseX / (double)progressBar.getWidth()) * progressBar.getMaximum());
+                System.out.println(progressBarVal);
+                MusicPlayer.getInstance().seekTo((double) progressBarVal/10);
             }
 
         });
