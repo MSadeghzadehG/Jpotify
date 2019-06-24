@@ -2,9 +2,13 @@ package veiw;
 
 import logic.MusicPlayer;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MusicControllerCenterPanel extends JPanel implements logic.MusicLinker{
     private GridBagConstraints gbc;
@@ -86,20 +90,29 @@ public class MusicControllerCenterPanel extends JPanel implements logic.MusicLin
         gbc.gridy = 1;
         gbc.weightx=6;
         gbc.weighty=1;
-        this.add(slider, gbc);
+        this.add(progressBar, gbc);
+
+        progressBar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                System.out.println("function is called");
+//                MusicPlayer.getInstance().pause();
+                MusicPlayer.getInstance().seekTo((double)slider.getValue()/1000);
+//                System.out.println((double)slider.getValue()/MusicPlayer.getInstance().getSong().getArtwork().getLengthInSeconds());
+                System.out.println(progressBar.getValue());
+//                MusicPlayer.getInstance().play();
+            }
+
+        });
 
         this.setVisible(true);
     }
 
 
-    public void setMusicStatus(double percentage) {
-        slider.setValue((int) percentage);
-    }
-
     @Override
     public void musicStatus(double percentage) {
-        System.out.println("function is called");
-        slider.setValue((int)(percentage*1000));
+        progressBar.setValue((int)(percentage*1000));
         this.repaint();
     }
 }
