@@ -5,9 +5,10 @@ import veiw.MainFrame;
 
 public class Main {
     public static void main(String[] arg) {
-        MainFrame mainFrame = new MainFrame();
         Song testSong = AlbumManager.getInstance().addNewSong("src/musics/b.mp3");
+
         MusicPlayer.getInstance().addSongToPlay(testSong);
+        MainFrame mainFrame = new MainFrame();
         MusicPlayer.getInstance().setMusicLinker(mainFrame.getMusicControllerPanel().getCenterPanel());
 //        MusicPlayer.getInstance().play();
 //        try {

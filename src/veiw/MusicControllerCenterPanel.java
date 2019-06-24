@@ -23,7 +23,7 @@ public class MusicControllerCenterPanel extends JPanel implements logic.MusicLin
 
         progressBar = new JProgressBar(0 , 100);
         progressBar.setStringPainted(true);
-        slider = new JSlider(0 , 100 , 0);
+        slider = new JSlider(0 , 1000 , 0);
 
         endTime = MusicPlayer.getInstance().getSong().getLength();
 
@@ -98,6 +98,8 @@ public class MusicControllerCenterPanel extends JPanel implements logic.MusicLin
 
     @Override
     public void musicStatus(double percentage) {
-
+        System.out.println("function is called");
+        slider.setValue((int)(percentage*1000));
+        this.repaint();
     }
 }

@@ -17,7 +17,7 @@ public class MusicPlayer {
 
 
     public void setMusicLinker(MusicLinker musicLinker) {
-        this.musicLinker = musicLinker;
+        player.setMusicLinker(musicLinker);
     }
 
     public static MusicPlayer getInstance() {
@@ -104,6 +104,7 @@ class PlayerThread extends Thread {
     private boolean isStarted;
     private Song song;
     private int currentFrame;
+    private MusicLinker musicLinker;
 
     private AdvancedPlayer player;
 
@@ -114,6 +115,12 @@ class PlayerThread extends Thread {
         this.song = song;
         currentFrame = 0;
         player = new AdvancedPlayer(new FileInputStream(new File(song.getSrc())));
+        this.musicLinker = musicLinker;
+    }
+    public void setMusicLinker(MusicLinker musicLinker)
+    {
+        this.musicLinker = musicLinker;
+
     }
 
     public void mp3Pause() {
@@ -163,7 +170,9 @@ class PlayerThread extends Thread {
                     }
                 }
                 currentFrame++;
+
                 percentage = (double)currentFrame/this.song.getArtwork().getFrameCount();
+                musicLinker.musicStatus(percentage);
 //                MusicControllerCenterPanel.getInstance().setMusicStatus(percentage);
             }
             // call listplay next function
