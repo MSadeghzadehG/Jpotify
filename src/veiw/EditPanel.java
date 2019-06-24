@@ -5,6 +5,9 @@ import java.awt.*;
 
 public class EditPanel extends JPanel {
 
+    JButton addSongButton;
+    JButton songButton;
+    JButton
 
     public EditPanel()
     {
