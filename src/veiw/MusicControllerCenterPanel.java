@@ -15,8 +15,17 @@ public class MusicControllerCenterPanel extends JPanel implements logic.MusicLin
     private JProgressBar progressBar;
     private String endTime;
     private String currentTime;
+    private JLabel currentTimeLabel;
+    private JLabel endTimeLabel;
 
 //    private static final MusicControllerCenterPanel instance = new MusicControllerCenterPanel();
+
+    private String calCurrentTime(){
+        long songLength = MusicPlayer.getInstance().getSong().getArtwork().getLengthInSeconds();
+        int currentSecond = (int) Math.floor((double)progressBar.getValue()/1000*songLength);
+//        System.out.println(currentSecond);
+        return currentSecond/60 + ":" + currentSecond%60;
+    }
 
     public MusicControllerCenterPanel() {
         setLayout(new GridBagLayout());
@@ -24,10 +33,13 @@ public class MusicControllerCenterPanel extends JPanel implements logic.MusicLin
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         gbc.fill = GridBagConstraints.BOTH;
 
-        progressBar = new JProgressBar(0 , 1000);
-        progressBar.setStringPainted(true);
-
         endTime = MusicPlayer.getInstance().getSong().getLength();
+        currentTime = "00:00";
+
+        progressBar = new JProgressBar(0 , 1000);
+//        progressBar.setStringPainted(true);
+        currentTimeLabel = new JLabel(currentTime);
+        endTimeLabel = new JLabel(endTime);
 
         JButton play = new JButton("play");
         JButton pause = new JButton("pause");
@@ -83,12 +95,22 @@ public class MusicControllerCenterPanel extends JPanel implements logic.MusicLin
                 MusicPlayer.getInstance().pause();
             }
         });
-        gbc.gridwidth = 6;
-        gbc.gridx = 0;
+        gbc.gridwidth = 4;
+        gbc.gridx = 1;
         gbc.gridy = 1;
-        gbc.weightx=6;
+        gbc.weightx=4;
         gbc.weighty=1;
         this.add(progressBar, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weightx=1;
+        gbc.weighty=1;
+        this.add(currentTimeLabel, gbc);
+        gbc.gridx = 5;
+        gbc.gridy = 1;
+        gbc.weightx=1;
+        gbc.weighty=1;
+        this.add(endTimeLabel, gbc);
 
         progressBar.addMouseListener(new MouseAdapter() {
             @Override
@@ -114,6 +136,9 @@ public class MusicControllerCenterPanel extends JPanel implements logic.MusicLin
     @Override
     public void musicStatus(double percentage) {
         progressBar.setValue((int)(percentage*1000));
+        this.currentTime = calCurrentTime();
+        currentTimeLabel.setText(currentTime);
+//        System.out.println(currentTime);
         this.repaint();
     }
 }
