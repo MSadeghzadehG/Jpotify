@@ -24,7 +24,7 @@ public class MusicControllerPanel extends JPanel {
 
         center = new MusicControllerCenterPanel();
         center.setBackground(Color.red);
-        JPanel right = new JPanel(new BorderLayout());
+        JPanel right = new JPanel(new GridBagLayout());
         right.setBackground(Color.blue);
         JPanel left = new JPanel(new BorderLayout());
         left.setBackground(Color.BLUE);

@@ -2,8 +2,6 @@ package veiw;
 
 import logic.MusicPlayer;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +21,6 @@ public class MusicControllerCenterPanel extends JPanel implements logic.MusicLin
     private String calCurrentTime(){
         long songLength = MusicPlayer.getInstance().getSong().getArtwork().getLengthInSeconds();
         int currentSecond = (int) Math.floor((double)progressBar.getValue()/1000*songLength);
-//        System.out.println(currentSecond);
         return currentSecond/60 + ":" + currentSecond%60;
     }
 
@@ -116,14 +113,8 @@ public class MusicControllerCenterPanel extends JPanel implements logic.MusicLin
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                System.out.println("function is called");
-//                MusicPlayer.getInstance().pause();
-//                System.out.println((double)slider.getValue()/MusicPlayer.getInstance().getSong().getArtwork().getLengthInSeconds());
-//                System.out.println(progressBar.getValue());
-//                MusicPlayer.getInstance().play();
                 int mouseX = e.getX();
                 int progressBarVal = (int)Math.round(((double)mouseX / (double)progressBar.getWidth()) * progressBar.getMaximum());
-                System.out.println(progressBarVal);
                 MusicPlayer.getInstance().seekTo((double) progressBarVal/10);
             }
 
@@ -138,7 +129,6 @@ public class MusicControllerCenterPanel extends JPanel implements logic.MusicLin
         progressBar.setValue((int)(percentage*1000));
         this.currentTime = calCurrentTime();
         currentTimeLabel.setText(currentTime);
-//        System.out.println(currentTime);
         this.repaint();
     }
 }
